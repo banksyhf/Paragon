@@ -5,7 +5,7 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>46d8f763-7054-4b62-924e-bad1917985ad</ProjectGuid>
+    <ProjectGuid>{3EBF4435-73B9-432B-A10F-31699F22E4A7}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Paragon.Core</RootNamespace>
