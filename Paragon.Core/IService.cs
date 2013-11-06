@@ -10,5 +10,8 @@ namespace Paragon.Core
 
         [OperationContract, XmlSerializerFormat]
         bool Register(string email, string username, string password);
+
+        [OperationContract, XmlSerializerFormat]
+        int CreateThread(int forumId, string subject, string body);
     }
 }

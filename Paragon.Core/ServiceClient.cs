@@ -29,6 +29,11 @@ namespace Paragon.Core
             return _service.Register(email, username, password);
         }
 
+        public int CreateThread(string subject, string body)
+        {
+            return _service.CreateThread(subject, body);
+        }
+
         #endregion " API "
 
         private static ChannelFactory<T> GenerateChannelFactory<T>()

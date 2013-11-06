@@ -14,13 +14,11 @@ namespace Paragon_Server
     {
         public bool Login(string username, string password)
         {
-            return new Accessor().UserExists(username, password);
+            Accessor.UserExists(username, password);
         }
 
         public bool Register(string email, string username, string password)
         {
-            Accessor accessor = new Accessor();
-
             string hash = Guid.NewGuid().ToString("N");
 
             User user = new User
@@ -32,7 +30,12 @@ namespace Paragon_Server
                 Hash = hash
             };
 
-            return accessor.InsertUser(user);
+            return Accessor.InsertUser(user);
+        }
+
+        public int CreateThread(int forumId, string subject, string body)
+        {
+            Accessor.InsertThread(forumId, subject, body);
         }
     }
 }

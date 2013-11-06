@@ -6,16 +6,18 @@ using System.Text;
 
 namespace Paragon_Database
 {
-    public class Accessor
+    public static class Accessor
     {
-        public Accessor()
+        public static void Initialize()
         {
             ParagonDataContext ctx = new ParagonDataContext();
             if (!ctx.DatabaseExists())
                 ctx.CreateDatabase();
         }
 
-        public bool InsertUser(User user)
+        #region " Insert "
+
+        public static bool InsertUser(User user)
         {
             ParagonDataContext ctx = new ParagonDataContext();
 
@@ -33,7 +35,18 @@ namespace Paragon_Database
             return ctx.Users.Contains(user);
         }
 
-        public bool UserExists(string username, string password)
+        public static bool InsertThread(int forumId, string subject, string body)
+        {
+            //TODO: Insert thread into database.
+
+            return true;
+        }
+
+        #endregion
+
+        #region " User Functions "
+
+        public static bool UserExists(string username, string password)
         {
             ParagonDataContext ctx = new ParagonDataContext();
 
@@ -45,11 +58,13 @@ namespace Paragon_Database
             return false; //User doesn't exist, return false.
         }
 
-        public User FindUserFromUsername(string username)
+        public static User FindUserFromUsername(string username)
         {
             ParagonDataContext ctx = new ParagonDataContext();
 
             return ctx.Users.FirstOrDefault(x => x.Username == username.ToLower());
         }
+
+        #endregion
     }
 }
