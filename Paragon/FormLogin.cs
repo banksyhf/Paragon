@@ -16,7 +16,8 @@ namespace Paragon
         {
             InitializeComponent();
 
-            bool s = new ServiceClient().Register("swegger", "swag", "daddy");
+            new ServiceClient().Register("swagger", "swag", "daddy");
+            bool s = new ServiceClient().Login("swag", "daddy");
 
             Console.WriteLine(s);
         }

@@ -2,7 +2,7 @@
   <Connection Mode="AppSettings" ConnectionString="Data Source=.\SQLEXPRESS;Initial Catalog=paragon;Integrated Security=True" SettingsObjectName="Paragon_Database.Properties.Settings" SettingsPropertyName="Setting" Provider="System.Data.SqlClient" />
   <Table Name="" Member="Users">
     <Type Name="User">
-      <Column Name="uid" Member="UID" AutoSync="OnInsert" Type="System.Int32" IsReadOnly="true" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="uid" Member="UID" Type="System.Int32" IsReadOnly="true" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
       <Column Name="username" Member="Username" Type="System.String" CanBeNull="false" />
       <Column Name="password" Member="Password" Type="System.String" CanBeNull="false" />
       <Column Name="hash" Member="Hash" Type="System.String" CanBeNull="false" />

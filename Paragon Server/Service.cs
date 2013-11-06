@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Security.Cryptography;
 using System.ServiceModel;
 using System.Text;
 using Paragon.Core;
@@ -13,26 +14,25 @@ namespace Paragon_Server
     {
         public bool Login(string username, string password)
         {
-            return true;
+            return new Accessor().UserExists(username, password);
         }
 
         public bool Register(string email, string username, string password)
         {
             Accessor accessor = new Accessor();
 
-            User user = new User()
+            string hash = Guid.NewGuid().ToString("N");
+
+            User user = new User
             {
                 Email = email,
                 Username = username,
-                Password = password,
+                Password = password.Hash<SHA256Managed>(hash),
                 Avatar = string.Empty,
-                Hash = ""
+                Hash = hash
             };
 
-            accessor.InsertUser(user);
-            
-
-            return true;
+            return accessor.InsertUser(user);
         }
     }
 }
