@@ -3,20 +3,19 @@ using System.Text;
 
 namespace Paragon_Database
 {
-    internal static class ExtensionMethods
+    public static class ExtensionMethods
     {
         public static string Hash<T>(this string input, string salt) where T : HashAlgorithm, new()
         {
-            using (T algo = new T())
+            using (T hash = new T())
             {
-                byte[] data = algo.ComputeHash(Encoding.UTF8.GetBytes(input + salt));
+                byte[] data = hash.ComputeHash(Encoding.UTF8.GetBytes(input + salt));
 
-                StringBuilder sBuilder = new StringBuilder();
+                StringBuilder builder = new StringBuilder();
                 foreach (byte b in data)
-                {
-                    sBuilder.Append(b.ToString("x2"));
-                }
-                return sBuilder.ToString();
+                    builder.Append(b.ToString("x2"));
+
+                return builder.ToString();
             }
         }
     }
