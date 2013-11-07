@@ -19,7 +19,7 @@ namespace Paragon.Core
 
         #region " API "
 
-        public bool Login(string username, string password)
+        public LoginResult Login(string username, string password)
         {
             return _service.Login(username, password);
         }
@@ -29,9 +29,9 @@ namespace Paragon.Core
             return _service.Register(email, username, password);
         }
 
-        public int CreateThread(string subject, string body)
+        public int CreateThread(int forumId, string subject, string body)
         {
-            return _service.CreateThread(subject, body);
+            return _service.CreateThread(forumId, subject, body);
         }
 
         #endregion " API "

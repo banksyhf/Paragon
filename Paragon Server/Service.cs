@@ -12,9 +12,9 @@ namespace Paragon_Server
 {
     public class Service : IService
     {
-        public bool Login(string username, string password)
+        public LoginResult Login(string username, string password)
         {
-            Accessor.UserExists(username, password);
+            return Accessor.UserExists(username, password);
         }
 
         public bool Register(string email, string username, string password)
@@ -35,7 +35,7 @@ namespace Paragon_Server
 
         public int CreateThread(int forumId, string subject, string body)
         {
-            Accessor.InsertThread(forumId, subject, body);
+            return Thread.Thread.Create(forumId, subject, body);
         }
     }
 }

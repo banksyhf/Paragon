@@ -8,11 +8,13 @@ namespace Paragon_Server.Thread
 {
     internal class Thread
     {
-        public static void Create(int forumId, string subject, string body)
+        public static int Create(int forumId, string subject, string body)
         {
-            Accessor accessor = new Accessor();
+            int insert = Accessor.InsertThread(forumId, subject, body);
 
-            
+            //TODO: Do... more?
+
+            return insert;
         }
     }
 }

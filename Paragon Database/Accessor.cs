@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
+using Paragon.Core;
 
 namespace Paragon_Database
 {
@@ -21,8 +22,8 @@ namespace Paragon_Database
         {
             ParagonDataContext ctx = new ParagonDataContext();
 
-            bool usernameExists = ctx.Users.Any(u => u.Username.ToLower() == user.Username.ToLower());
-            bool emailExists = ctx.Users.Any(u => u.Email.ToLower() == user.Email.ToLower());
+            bool usernameExists = ctx.Users.Any(u => String.Equals(u.Username, user.Username, StringComparison.CurrentCultureIgnoreCase));
+            bool emailExists = ctx.Users.Any(u => String.Equals(u.Email, user.Email, StringComparison.CurrentCultureIgnoreCase));
 
             if (usernameExists || emailExists)
             {
@@ -35,27 +36,36 @@ namespace Paragon_Database
             return ctx.Users.Contains(user);
         }
 
-        public static bool InsertThread(int forumId, string subject, string body)
+        public static int InsertThread(int forumId, string subject, string body)
         {
             //TODO: Insert thread into database.
 
-            return true;
+            return 0;
         }
 
         #endregion
 
         #region " User Functions "
 
-        public static bool UserExists(string username, string password)
+        public static LoginResult UserExists(string username, string password)
         {
             ParagonDataContext ctx = new ParagonDataContext();
 
-            User user = ctx.Users.FirstOrDefault(x => x.Username.ToLower() == username.ToLower());
+            username = username.ToLower();
 
-            if (user != null)
-                return user.Password == password.Hash<SHA256Managed>(user.Hash);
+            User user = ctx.Users.FirstOrDefault(x =>
+                x.Username.ToLower() == username
+                || x.Email.ToLower() == username);
 
-            return false; //User doesn't exist, return false.
+            if (user == null)
+                return LoginResult.WrongUsername; //User doesn't exist, user must have entered wrong username/email.
+
+
+            if (user.Password == password.Hash<SHA256Managed>(user.Hash))
+                return LoginResult.Success; //User password == given password :D
+
+            //User password is not == to given password, return WrongPassword.
+            return LoginResult.WrongPassword;
         }
 
         public static User FindUserFromUsername(string username)

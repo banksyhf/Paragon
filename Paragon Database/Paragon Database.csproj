@@ -74,6 +74,12 @@
   <ItemGroup>
     <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Paragon.Core\Paragon.Core.csproj">
+      <Project>{3ebf4435-73b9-432b-a10f-31699f22e4a7}</Project>
+      <Name>Paragon.Core</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -1,4 +1,5 @@
 ﻿using System.ServiceModel;
+using System.Xml.Serialization;
 
 namespace Paragon.Core
 {
@@ -6,12 +7,20 @@ namespace Paragon.Core
     public interface IService
     {
         [OperationContract, XmlSerializerFormat]
-        bool Login(string username, string password);
+        LoginResult Login(string username, string password);
 
         [OperationContract, XmlSerializerFormat]
         bool Register(string email, string username, string password);
 
         [OperationContract, XmlSerializerFormat]
         int CreateThread(int forumId, string subject, string body);
+
+    }
+    [XmlType]
+    public enum LoginResult : byte
+    {
+        Success = 0x00,
+        WrongUsername = 0x01,
+        WrongPassword = 0x02
     }
 }

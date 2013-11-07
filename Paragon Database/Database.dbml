@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?><Database Class="ParagonDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
-  <Connection Mode="AppSettings" ConnectionString="Data Source=.\SQLEXPRESS;Initial Catalog=paragon;Integrated Security=True" SettingsObjectName="Paragon_Database.Properties.Settings" SettingsPropertyName="Setting" Provider="System.Data.SqlClient" />
+  <Connection Mode="AppSettings" ConnectionString="Data Source=.\SQLEXPRESS;Initial Catalog=paragon;Integrated Security=True" SettingsObjectName="Paragon_Database.Properties.Settings" SettingsPropertyName="ConnectionString" Provider="System.Data.SqlClient" />
   <Table Name="" Member="Users">
     <Type Name="User">
       <Column Name="uid" Member="UID" Type="System.Int32" IsReadOnly="true" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
@@ -8,6 +8,16 @@
       <Column Name="hash" Member="Hash" Type="System.String" CanBeNull="false" />
       <Column Name="avatar" Member="Avatar" Type="System.String" CanBeNull="false" />
       <Column Name="email" Member="Email" Type="System.String" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="" Member="Threads">
+    <Type Name="Thread">
+      <Column Name="tid" Member="ThreadID" Storage="_UID" Type="System.Int32" IsReadOnly="true" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="fid" Member="ForumID" Storage="_Username" Type="System.Int32" CanBeNull="false" UpdateCheck="Always" />
+      <Column Name="author" Member="Author" Storage="_Password" Type="System.String" CanBeNull="false" UpdateCheck="Always" />
+      <Column Name="sticky" Member="IsSticky" Storage="_Email" Type="System.Boolean" CanBeNull="false" UpdateCheck="Always" />
+      <Column Name="posttime" Member="PostTime" Type="System.DateTime" CanBeNull="false" UpdateCheck="Always" />
+      <Column Name="edittime" Member="EditTime" AutoSync="Never" Type="System.DateTime" CanBeNull="false" UpdateCheck="Always" IsVersion="true" />
     </Type>
   </Table>
 </Database>

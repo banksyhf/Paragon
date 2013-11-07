@@ -32,10 +32,13 @@ namespace Paragon_Database
     partial void InsertUser(User instance);
     partial void UpdateUser(User instance);
     partial void DeleteUser(User instance);
+    partial void InsertThread(Thread instance);
+    partial void UpdateThread(Thread instance);
+    partial void DeleteThread(Thread instance);
     #endregion
 		
 		public ParagonDataContext() : 
-				base(global::Paragon_Database.Properties.Settings.Default.Setting, mappingSource)
+				base(global::Paragon_Database.Properties.Settings.Default.ConnectionString, mappingSource)
 		{
 			OnCreated();
 		}
@@ -69,6 +72,14 @@ namespace Paragon_Database
 			get
 			{
 				return this.GetTable<User>();
+			}
+		}
+		
+		public System.Data.Linq.Table<Thread> Threads
+		{
+			get
+			{
+				return this.GetTable<Thread>();
 			}
 		}
 	}
@@ -217,6 +228,175 @@ namespace Paragon_Database
 					this._Email = value;
 					this.SendPropertyChanged("Email");
 					this.OnEmailChanged();
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="")]
+	public partial class Thread : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _UID = default(int);
+		
+		private int _Username;
+		
+		private string _Password;
+		
+		private bool _Email;
+		
+		private System.DateTime _PostTime;
+		
+		private System.DateTime _EditTime;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnForumIDChanging(int value);
+    partial void OnForumIDChanged();
+    partial void OnAuthorChanging(string value);
+    partial void OnAuthorChanged();
+    partial void OnIsStickyChanging(bool value);
+    partial void OnIsStickyChanged();
+    partial void OnPostTimeChanging(System.DateTime value);
+    partial void OnPostTimeChanged();
+    partial void OnEditTimeChanging(System.DateTime value);
+    partial void OnEditTimeChanged();
+    #endregion
+		
+		public Thread()
+		{
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="tid", Storage="_UID", AutoSync=AutoSync.OnInsert, IsPrimaryKey=true, IsDbGenerated=true, UpdateCheck=UpdateCheck.Never)]
+		public int ThreadID
+		{
+			get
+			{
+				return this._UID;
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="fid", Storage="_Username")]
+		public int ForumID
+		{
+			get
+			{
+				return this._Username;
+			}
+			set
+			{
+				if ((this._Username != value))
+				{
+					this.OnForumIDChanging(value);
+					this.SendPropertyChanging();
+					this._Username = value;
+					this.SendPropertyChanged("ForumID");
+					this.OnForumIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="author", Storage="_Password", CanBeNull=false)]
+		public string Author
+		{
+			get
+			{
+				return this._Password;
+			}
+			set
+			{
+				if ((this._Password != value))
+				{
+					this.OnAuthorChanging(value);
+					this.SendPropertyChanging();
+					this._Password = value;
+					this.SendPropertyChanged("Author");
+					this.OnAuthorChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="sticky", Storage="_Email")]
+		public bool IsSticky
+		{
+			get
+			{
+				return this._Email;
+			}
+			set
+			{
+				if ((this._Email != value))
+				{
+					this.OnIsStickyChanging(value);
+					this.SendPropertyChanging();
+					this._Email = value;
+					this.SendPropertyChanged("IsSticky");
+					this.OnIsStickyChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="posttime", Storage="_PostTime")]
+		public System.DateTime PostTime
+		{
+			get
+			{
+				return this._PostTime;
+			}
+			set
+			{
+				if ((this._PostTime != value))
+				{
+					this.OnPostTimeChanging(value);
+					this.SendPropertyChanging();
+					this._PostTime = value;
+					this.SendPropertyChanged("PostTime");
+					this.OnPostTimeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="edittime", Storage="_EditTime", IsDbGenerated=true, IsVersion=true)]
+		public System.DateTime EditTime
+		{
+			get
+			{
+				return this._EditTime;
+			}
+			set
+			{
+				if ((this._EditTime != value))
+				{
+					this.OnEditTimeChanging(value);
+					this.SendPropertyChanging();
+					this._EditTime = value;
+					this.SendPropertyChanged("EditTime");
+					this.OnEditTimeChanged();
 				}
 			}
 		}
