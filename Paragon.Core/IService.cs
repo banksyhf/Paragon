@@ -15,6 +15,9 @@ namespace Paragon.Core
         [OperationContract, XmlSerializerFormat]
         int CreateThread(int forumId, string subject, string body);
 
+        [OperationContract, XmlSerializerFormat]
+        bool IsOnline();
+
     }
     [XmlType]
     public enum LoginResult : byte

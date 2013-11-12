@@ -11,9 +11,16 @@ namespace Paragon_Database
     {
         public static void Initialize()
         {
-            ParagonDataContext ctx = new ParagonDataContext();
-            if (!ctx.DatabaseExists())
-                ctx.CreateDatabase();
+            try
+            {
+                ParagonDataContext ctx = new ParagonDataContext();
+                if (!ctx.DatabaseExists())
+                    ctx.CreateDatabase();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+            }
         }
 
         #region " Insert "

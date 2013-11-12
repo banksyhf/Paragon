@@ -34,6 +34,11 @@ namespace Paragon.Core
             return _service.CreateThread(forumId, subject, body);
         }
 
+        public bool IsOnline()
+        {
+            return _service.IsOnline();
+        }
+
         #endregion " API "
 
         private static ChannelFactory<T> GenerateChannelFactory<T>()

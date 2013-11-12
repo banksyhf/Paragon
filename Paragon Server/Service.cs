@@ -37,5 +37,10 @@ namespace Paragon_Server
         {
             return Thread.Thread.Create(forumId, subject, body);
         }
+
+        public bool IsOnline()
+        {
+            return true;
+        }
     }
 }
