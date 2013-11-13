@@ -10,12 +10,22 @@ namespace Paragon_Server
     internal class Listener<T>
     {
         private ServiceHost _host;
+        private readonly Type _type;
 
         public Listener(Type type)
         {
-            //TODO: Do some initialization?
+            _type = type;
+        }
 
-            Listen(type);
+        public void Listen()
+        {
+            Listen(_type);
+        }
+
+        internal void Stop()
+        {
+            _host.Close();
+
         }
 
         private void Listen(Type type)

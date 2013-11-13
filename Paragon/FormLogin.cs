@@ -13,30 +13,30 @@ namespace Paragon
 {
     public partial class FormLogin : Form
     {
+        private readonly ServiceClient _service;
         public FormLogin()
         {
             InitializeComponent();
+
+            txtUsername.Select();
+
+            _service = new ServiceClient();
             CheckServer();
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            ServiceClient client = new ServiceClient();
-            client.Register("swagger", "swag", "daddy");
-            LoginResult result = client.Login("swag", "daddy");
-
-            Console.WriteLine(result);
         }
 
         private async void CheckServer()
         {
-            bool online = await Task.Factory.StartNew<bool>(() =>
-                {
-                    return new ServiceClient().IsOnline();
-                });
+            bool online = await Task.Factory.StartNew(() => _service.IsOnline());
 
             lblServerOnline.Text = online ? "Online." : "Offline.";
             lblServerOnline.ForeColor = online ? Color.Green : Color.Red;
+            btnLogin.Enabled = true;
+            btnToRegister.Enabled = true;
+        }
+
+        private void btnLogin_Click(object sender, EventArgs e)
+        {
+            _service.Login(txtUsername.Text, txtPassword.Text);
         }
     }
 }

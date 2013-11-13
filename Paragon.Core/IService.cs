@@ -24,6 +24,7 @@ namespace Paragon.Core
     {
         Success = 0x00,
         WrongUsername = 0x01,
-        WrongPassword = 0x02
+        WrongPassword = 0x02,
+        UnknownFailure = 0x03
     }
 }

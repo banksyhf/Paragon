@@ -16,9 +16,17 @@ namespace Paragon_Server
         [STAThread]
         static void Main(string[] args)
         {
-            Accessor.Initialize();
+            if (!Accessor.Initialize())
+            {
+                Console.WriteLine("Failed to connect to database.\nPress any key to exit.");
+                Console.ReadKey();
+                return;
+            }
 
+            //Setup a Listener for IService and pass the type to handle it.
             _listener = new Listener<IService>(typeof(Service));
+            //Start listening.
+            _listener.Listen();
 
             Console.ReadLine();
         }

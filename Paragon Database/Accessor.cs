@@ -19,10 +19,6 @@ namespace Paragon_Database
                 try
                 {
                     ParagonDataContext ctx = new ParagonDataContext();
-                    foreach (User user in ctx.Users)
-                    {
-                        Console.WriteLine(user.Username);
-                    }
                     if (!ctx.DatabaseExists())
                         ctx.CreateDatabase();
 
@@ -34,12 +30,10 @@ namespace Paragon_Database
                     {
                         DataConnectionConfiguration dcs = new DataConnectionConfiguration(null);
                         dcs.LoadConfiguration(dialog);
-                        if (DataConnectionDialog.Show(dialog) == DialogResult.OK)
-                        {
-                            string connectionString = dialog.ConnectionString;
+                        if (DataConnectionDialog.Show(dialog) != DialogResult.OK) return false;
+                        string connectionString = dialog.ConnectionString;
 
-                            ApplicationSettings.ConnectionString = connectionString;
-                        }
+                        ApplicationSettings.ConnectionString = connectionString;
                     }
                 }
             }

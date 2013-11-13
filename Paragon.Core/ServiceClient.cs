@@ -21,22 +21,26 @@ namespace Paragon.Core
 
         public LoginResult Login(string username, string password)
         {
-            return _service.Login(username, password);
+            try { return _service.Login(username, password); }
+            catch { return LoginResult.UnknownFailure; }
         }
 
         public bool Register(string email, string username, string password)
         {
-            return _service.Register(email, username, password);
+            try { return _service.Register(email, username, password); }
+            catch { return false; }
         }
 
         public int CreateThread(int forumId, string subject, string body)
         {
-            return _service.CreateThread(forumId, subject, body);
+            try {return _service.CreateThread(forumId, subject, body); }
+            catch { return -1; }
         }
 
         public bool IsOnline()
         {
-            return _service.IsOnline();
+            try { return _service.IsOnline(); }
+            catch { return false; }
         }
 
         #endregion " API "
