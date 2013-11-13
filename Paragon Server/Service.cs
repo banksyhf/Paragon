@@ -7,6 +7,7 @@ using System.ServiceModel;
 using System.Text;
 using Paragon.Core;
 using Paragon_Database;
+using Paragon_Database.Database;
 
 namespace Paragon_Server
 {

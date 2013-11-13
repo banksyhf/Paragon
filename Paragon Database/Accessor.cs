@@ -1,25 +1,47 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
+using System.Windows.Forms;
+using Microsoft.Data.ConnectionUI;
 using System.Security.Cryptography;
-using System.Text;
 using Paragon.Core;
+using Paragon_Database.Database;
+using Paragon_Database.Settings;
 
 namespace Paragon_Database
 {
     public static class Accessor
     {
-        public static void Initialize()
+        public static bool Initialize()
         {
-            try
+            ApplicationSettings.Initialize();
+            while (true)
             {
-                ParagonDataContext ctx = new ParagonDataContext();
-                if (!ctx.DatabaseExists())
-                    ctx.CreateDatabase();
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.ToString());
+                try
+                {
+                    ParagonDataContext ctx = new ParagonDataContext();
+                    foreach (User user in ctx.Users)
+                    {
+                        Console.WriteLine(user.Username);
+                    }
+                    if (!ctx.DatabaseExists())
+                        ctx.CreateDatabase();
+
+                    return true;
+                }
+                catch (Exception)
+                {
+                    using (DataConnectionDialog dialog = new DataConnectionDialog())
+                    {
+                        DataConnectionConfiguration dcs = new DataConnectionConfiguration(null);
+                        dcs.LoadConfiguration(dialog);
+                        if (DataConnectionDialog.Show(dialog) == DialogResult.OK)
+                        {
+                            string connectionString = dialog.ConnectionString;
+
+                            ApplicationSettings.ConnectionString = connectionString;
+                        }
+                    }
+                }
             }
         }
 
@@ -29,8 +51,8 @@ namespace Paragon_Database
         {
             ParagonDataContext ctx = new ParagonDataContext();
 
-            bool usernameExists = ctx.Users.Any(u => String.Equals(u.Username, user.Username, StringComparison.CurrentCultureIgnoreCase));
-            bool emailExists = ctx.Users.Any(u => String.Equals(u.Email, user.Email, StringComparison.CurrentCultureIgnoreCase));
+            bool usernameExists = ctx.Users.Any(u => u.Username.ToLower() == user.Username.ToLower());
+            bool emailExists = ctx.Users.Any(u => u.Email.ToLower() == user.Email.ToLower());
 
             if (usernameExists || emailExists)
             {
