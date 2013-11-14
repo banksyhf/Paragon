@@ -18,7 +18,7 @@ namespace Paragon_Server
             return Accessor.UserExists(username, password);
         }
 
-        public bool Register(string email, string username, string password)
+        public RegisterResult Register(string email, string username, string password)
         {
             string hash = Guid.NewGuid().ToString("N");
 

@@ -25,10 +25,10 @@ namespace Paragon.Core
             catch { return LoginResult.UnknownFailure; }
         }
 
-        public bool Register(string email, string username, string password)
+        public RegisterResult Register(string email, string username, string password)
         {
             try { return _service.Register(email, username, password); }
-            catch { return false; }
+            catch { return RegisterResult.UnknownFailure; }
         }
 
         public int CreateThread(int forumId, string subject, string body)

@@ -41,22 +41,22 @@ namespace Paragon_Database
 
         #region " Insert "
 
-        public static bool InsertUser(User user)
+        public static RegisterResult InsertUser(User user)
         {
             ParagonDataContext ctx = new ParagonDataContext();
 
             bool usernameExists = ctx.Users.Any(u => u.Username.ToLower() == user.Username.ToLower());
             bool emailExists = ctx.Users.Any(u => u.Email.ToLower() == user.Email.ToLower());
 
-            if (usernameExists || emailExists)
-            {
-                return false; // TODO: Return specific error?
-            }
+            if (usernameExists)
+                return RegisterResult.UsernameExists;
+            if (emailExists)
+                return RegisterResult.EmailExists;
 
             ctx.Users.InsertOnSubmit(user);
             ctx.SubmitChanges();
 
-            return ctx.Users.Contains(user);
+            return ctx.Users.Contains(user) ? RegisterResult.Success : RegisterResult.UnknownFailure;
         }
 
         public static int InsertThread(int forumId, string subject, string body)

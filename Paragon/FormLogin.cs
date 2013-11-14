@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
+﻿using Paragon.Core;
+using System;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Windows.Forms;
-using Paragon.Core;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace Paragon
 {
@@ -32,11 +27,29 @@ namespace Paragon
             lblServerOnline.ForeColor = online ? Color.Green : Color.Red;
             btnLogin.Enabled = true;
             btnToRegister.Enabled = true;
+            btnRegister.Enabled = true;
+            btnLogin.Enabled = true;
         }
 
         private void btnLogin_Click(object sender, EventArgs e)
         {
             _service.Login(txtUsername.Text, txtPassword.Text);
+        }
+
+        private void btnToRegister_Click(object sender, EventArgs e)
+        {
+            hiddenTab1.SelectedIndex = 1;
+            lblfocus.Select();
+        }
+
+        private void btnRegister_Click(object sender, EventArgs e)
+        {
+            _service.Register(txtRegisterEmail.Text, txtRegisterUsername.Text, txtRegisterPassword.Text);
+        }
+
+        private void btnBack_Click(object sender, EventArgs e)
+        {
+            hiddenTab1.SelectedIndex = 0;
         }
     }
 }
