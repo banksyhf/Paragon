@@ -38,12 +38,12 @@
             this.btnToRegister = new System.Windows.Forms.Button();
             this.btnLogin = new System.Windows.Forms.Button();
             this.tabRegister = new System.Windows.Forms.TabPage();
-            this.lblfocus = new System.Windows.Forms.Label();
+            this.lblRegisterResult = new System.Windows.Forms.Label();
+            this.txtRegisterEmail = new Paragon.Controls.CueTextBox();
             this.txtRegisterPassword = new Paragon.Controls.CueTextBox();
             this.txtRegisterUsername = new Paragon.Controls.CueTextBox();
             this.btnBack = new System.Windows.Forms.Button();
             this.btnRegister = new System.Windows.Forms.Button();
-            this.txtRegisterEmail = new Paragon.Controls.CueTextBox();
             this.statusStrip1.SuspendLayout();
             this.hiddenTab1.SuspendLayout();
             this.tabLogin.SuspendLayout();
@@ -140,8 +140,8 @@
             // 
             // tabRegister
             // 
+            this.tabRegister.Controls.Add(this.lblRegisterResult);
             this.tabRegister.Controls.Add(this.txtRegisterEmail);
-            this.tabRegister.Controls.Add(this.lblfocus);
             this.tabRegister.Controls.Add(this.txtRegisterPassword);
             this.tabRegister.Controls.Add(this.txtRegisterUsername);
             this.tabRegister.Controls.Add(this.btnBack);
@@ -153,15 +153,25 @@
             this.tabRegister.TabIndex = 1;
             this.tabRegister.UseVisualStyleBackColor = true;
             // 
-            // lblfocus
+            // lblRegisterResult
             // 
-            this.lblfocus.AutoSize = true;
-            this.lblfocus.Location = new System.Drawing.Point(93, 23);
-            this.lblfocus.Name = "lblfocus";
-            this.lblfocus.Size = new System.Drawing.Size(68, 13);
-            this.lblfocus.TabIndex = 0;
-            this.lblfocus.Text = "focus label";
-            this.lblfocus.Visible = false;
+            this.lblRegisterResult.AutoSize = true;
+            this.lblRegisterResult.Font = new System.Drawing.Font("Verdana", 9F);
+            this.lblRegisterResult.ForeColor = System.Drawing.Color.Red;
+            this.lblRegisterResult.Location = new System.Drawing.Point(93, 14);
+            this.lblRegisterResult.Name = "lblRegisterResult";
+            this.lblRegisterResult.Size = new System.Drawing.Size(102, 14);
+            this.lblRegisterResult.TabIndex = 6;
+            this.lblRegisterResult.Text = "Register Result";
+            this.lblRegisterResult.Visible = false;
+            // 
+            // txtRegisterEmail
+            // 
+            this.txtRegisterEmail.CueText = "Email";
+            this.txtRegisterEmail.Location = new System.Drawing.Point(96, 67);
+            this.txtRegisterEmail.Name = "txtRegisterEmail";
+            this.txtRegisterEmail.Size = new System.Drawing.Size(184, 21);
+            this.txtRegisterEmail.TabIndex = 2;
             // 
             // txtRegisterPassword
             // 
@@ -181,7 +191,6 @@
             // 
             // btnBack
             // 
-            this.btnBack.Enabled = false;
             this.btnBack.Location = new System.Drawing.Point(96, 121);
             this.btnBack.Name = "btnBack";
             this.btnBack.Size = new System.Drawing.Size(89, 25);
@@ -200,14 +209,6 @@
             this.btnRegister.Text = "Register";
             this.btnRegister.UseVisualStyleBackColor = true;
             this.btnRegister.Click += new System.EventHandler(this.btnRegister_Click);
-            // 
-            // txtRegisterEmail
-            // 
-            this.txtRegisterEmail.CueText = "Email";
-            this.txtRegisterEmail.Location = new System.Drawing.Point(96, 67);
-            this.txtRegisterEmail.Name = "txtRegisterEmail";
-            this.txtRegisterEmail.Size = new System.Drawing.Size(184, 21);
-            this.txtRegisterEmail.TabIndex = 2;
             // 
             // FormLogin
             // 
@@ -248,8 +249,8 @@
         private System.Windows.Forms.Button btnRegister;
         private Controls.CueTextBox txtRegisterPassword;
         private Controls.CueTextBox txtRegisterUsername;
-        private System.Windows.Forms.Label lblfocus;
         private Controls.CueTextBox txtRegisterEmail;
+        private System.Windows.Forms.Label lblRegisterResult;
     }
 }
 

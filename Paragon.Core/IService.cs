@@ -34,6 +34,8 @@ namespace Paragon.Core
         Success = 0x00,
         UsernameExists = 0x01,
         EmailExists = 0x02,
-        UnknownFailure = 0x03
+        InvalidEmail = 0x03, //TODO: Name more appropriately. This is for wrong format of emails
+        UsernameTooLong = 0x04,
+        UnknownFailure = 0x04
     }
 }

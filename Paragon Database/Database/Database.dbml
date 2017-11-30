@@ -1,22 +1,23 @@
-﻿<?xml version="1.0" encoding="utf-8"?><Database Class="ParagonDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
-  <Table Name="" Member="Users">
-    <Type Name="User">
-      <Column Name="uid" Member="UID" Type="System.Int32" IsReadOnly="true" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="username" Member="Username" Type="System.String" CanBeNull="false" />
-      <Column Name="password" Member="Password" Type="System.String" CanBeNull="false" />
-      <Column Name="hash" Member="Hash" Type="System.String" CanBeNull="false" />
-      <Column Name="avatar" Member="Avatar" Type="System.String" CanBeNull="false" />
-      <Column Name="email" Member="Email" Type="System.String" CanBeNull="false" />
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="paragon" Class="ParagonDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="AppSettings" ConnectionString="Data Source=PC-PC\SQLEXPRESS;Initial Catalog=paragon;Integrated Security=True;Encrypt=False;TrustServerCertificate=True" SettingsObjectName="Paragon_Database.Properties.Settings" SettingsPropertyName="paragonConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.Thread" Member="Threads">
+    <Type Name="Thread">
+      <Column Name="ThreadID" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="ForumID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="AuthorUID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="IsSticky" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="PostTime" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="EditTime" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
     </Type>
   </Table>
-  <Table Name="" Member="Threads">
-    <Type Name="Thread">
-      <Column Name="tid" Member="ThreadID" Storage="_UID" Type="System.Int32" IsReadOnly="true" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="fid" Member="ForumID" Storage="_Username" Type="System.Int32" CanBeNull="false" UpdateCheck="Always" />
-      <Column Name="author" Member="Author" Storage="_Password" Type="System.String" CanBeNull="false" UpdateCheck="Always" />
-      <Column Name="sticky" Member="IsSticky" Storage="_Email" Type="System.Boolean" CanBeNull="false" UpdateCheck="Always" />
-      <Column Name="posttime" Member="PostTime" Type="System.DateTime" CanBeNull="false" UpdateCheck="Always" />
-      <Column Name="edittime" Member="EditTime" AutoSync="Never" Type="System.DateTime" CanBeNull="false" UpdateCheck="Always" IsVersion="true" />
+  <Table Name="dbo.[User]" Member="Users">
+    <Type Name="User">
+      <Column Name="UID" AutoSync="Never" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Username" Type="System.String" DbType="NVarChar(16) NOT NULL" CanBeNull="false" />
+      <Column Name="Password" Type="System.String" DbType="NVarChar(64) NOT NULL" CanBeNull="false" />
+      <Column Name="Hash" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Email" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Avatar" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
     </Type>
   </Table>
 </Database>

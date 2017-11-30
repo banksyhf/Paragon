@@ -11,21 +11,32 @@ namespace Paragon_Database
 {
     public static class Accessor
     {
+        private static UserAccessor _userAccessor;
+        private static ThreadAccessor _threadAccessor;
+
         public static bool Initialize()
         {
             ApplicationSettings.Initialize();
             while (true)
             {
+                //TODO: Get rid of this try. Not sure what I was doing originally.
+                //This is completely broken and just (predictably) fails if it can't connect to the database or what have you.
+                //Kinda makes it hard for someone to set this up if they don't know what I was doing, which if I'm being honest, I didn't.
                 try
                 {
                     ParagonDataContext ctx = new ParagonDataContext();
+                    //TODO: Pretty sure this fails everytime if the database doesn't exist so go me, this is very helpful. Idiot.
                     if (!ctx.DatabaseExists())
                         ctx.CreateDatabase();
+
+                    _userAccessor = new UserAccessor();
+
 
                     return true;
                 }
                 catch (Exception)
                 {
+                    //So I just spent like 3 hours trying to get a SQL Server running and this never popped up once. I have no idea what I was doing.
                     using (DataConnectionDialog dialog = new DataConnectionDialog())
                     {
                         DataConnectionConfiguration dcs = new DataConnectionConfiguration(null);
@@ -39,65 +50,26 @@ namespace Paragon_Database
             }
         }
 
-        #region " Insert "
-
         public static RegisterResult InsertUser(User user)
         {
-            ParagonDataContext ctx = new ParagonDataContext();
-
-            bool usernameExists = ctx.Users.Any(u => u.Username.ToLower() == user.Username.ToLower());
-            bool emailExists = ctx.Users.Any(u => u.Email.ToLower() == user.Email.ToLower());
-
-            if (usernameExists)
-                return RegisterResult.UsernameExists;
-            if (emailExists)
-                return RegisterResult.EmailExists;
-
-            ctx.Users.InsertOnSubmit(user);
-            ctx.SubmitChanges();
-
-            return ctx.Users.Contains(user) ? RegisterResult.Success : RegisterResult.UnknownFailure;
+            return _userAccessor.InsertUser(user);
         }
-
-        public static int InsertThread(int forumId, string subject, string body)
-        {
-            //TODO: Insert thread into database.
-
-            return 0;
-        }
-
-        #endregion
-
-        #region " User Functions "
 
         public static LoginResult UserExists(string username, string password)
         {
-            ParagonDataContext ctx = new ParagonDataContext();
-
-            username = username.ToLower();
-
-            User user = ctx.Users.FirstOrDefault(x =>
-                x.Username.ToLower() == username
-                || x.Email.ToLower() == username);
-
-            if (user == null)
-                return LoginResult.WrongUsername; //User doesn't exist, user must have entered wrong username/email.
-
-
-            if (user.Password == password.Hash<SHA256Managed>(user.Hash))
-                return LoginResult.Success; //User password == given password :D
-
-            //User password is not == to given password, return WrongPassword.
-            return LoginResult.WrongPassword;
+            return _userAccessor.UserExists(username, password);
         }
 
         public static User FindUserFromUsername(string username)
         {
-            ParagonDataContext ctx = new ParagonDataContext();
-
-            return ctx.Users.FirstOrDefault(x => x.Username == username.ToLower());
+            return _userAccessor.FindUserFromUsername(username);
         }
 
-        #endregion
+        //TODO: Create Thread or ThreadCreation class or something similar instead of these parameters.
+        public static int InsertThread(int forumId, string subject, string body)
+        {
+            //TODO: Insert thread into database.
+            return _threadAccessor.InsertThread(forumId, subject, body);
+        }
     }
 }

@@ -18,7 +18,9 @@ namespace Paragon_Database.Settings
         {
             _initialized = true;
             if (!File.Exists(IniPath))
+            {
                 File.Create(IniPath).Close();
+            }
 
             _ini = new IniFile(IniPath);
             _connectionString = _ini.IniReadValue(INI_SECTION, "connectionString");

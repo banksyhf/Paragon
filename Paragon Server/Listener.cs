@@ -31,13 +31,13 @@ namespace Paragon_Server
         private void Listen(Type type)
         {
 
-            _host = new ServiceHost(type, new Uri("net.tcp://tempuri.org:5656/Service/"));
+            _host = new ServiceHost(type, new Uri("net.tcp://127.0.0.1:5656/Service/"));
             NetTcpBinding binding = new NetTcpBinding(SecurityMode.None, false)
             {
                 ReceiveTimeout = TimeSpan.MaxValue,
                 SendTimeout = TimeSpan.MaxValue,
                 TransferMode = TransferMode.Streamed,
-                MaxReceivedMessageSize = long.MaxValue,
+                MaxReceivedMessageSize = long.MaxValue, //TODO: Change to appropriate max message size
             };
 
             _host.AddServiceEndpoint(typeof(T), binding, string.Empty);

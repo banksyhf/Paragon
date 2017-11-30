@@ -9,6 +9,8 @@ namespace Paragon.Controls
 {
     internal class CueTextBox : TextBox
     {
+
+        //TODO: Fix issue where CueText isn't drawn when Text is erased
         public event EventHandler CueTextChanged;
         private string _cueText;
 
@@ -35,15 +37,14 @@ namespace Paragon.Controls
         protected virtual void OnCueTextChanged(EventArgs e)
         {
             this.Invalidate(true);
-            if (this.CueTextChanged != null)
-                this.CueTextChanged(this, e);
+            this.CueTextChanged?.Invoke(this, e);
         }
 
         protected override void OnPaint(PaintEventArgs e)
         {
             base.OnPaint(e);
 
-            if (string.IsNullOrEmpty(this.Text.Trim()) && !string.IsNullOrEmpty(this.CueText) && !this.Focused)
+            if (string.IsNullOrEmpty(this.Text.Trim()) && !string.IsNullOrEmpty(this.CueText))// && !this.Focused)
             {
                 Point startingPoint = new Point(0, 0);
                 StringFormat format = new StringFormat();
